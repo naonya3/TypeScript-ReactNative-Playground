@@ -1,13 +1,15 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
-
-
+import * as React from 'react'
+import { StyleSheet, SafeAreaView } from "react-native"
+import Counter from './counter/Container'
+import store from './store'
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 interface Props {
 
 }
 
 interface State {
-
+    text: String
 }
 
 const styles: any = StyleSheet.create({
@@ -28,25 +30,25 @@ const styles: any = StyleSheet.create({
       marginBottom: 5,
     },
 });
+
+interface FirstViewProps {
+    text: String
+}
+class FirstView extends React.Component<{}, State> {
+    render() {
+        return (
+            <Counter />
+        )
+    }
+}
 export default class App extends React.Component<Props, State> {
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <ScrollView>
-                <View style={styles.container}>
-                    <Text style={styles.welcome}>
-                        Welcome to React Native
-                    </Text>
-                    <Text style={styles.instructions}>
-                        To get started, edit index.tsx
-                    </Text>
-                    <Text style={styles.instructions}>
-                        Press Cmd+R to reload, {"\n"}
-                        Cmd+D or shake for dev menu!
-                    </Text>
-                </View>
-                </ScrollView>
-            </SafeAreaView>
+            <Provider store={store}>
+                <SafeAreaView>
+                    <FirstView />
+                </SafeAreaView>
+            </Provider>
         );
-    }
+    }   
 }
